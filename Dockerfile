@@ -97,7 +97,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && tar -zxC /usr/src -f nginx.tar.gz \
     && rm nginx.tar.gz \
     && cd /usr/src/nginx-$NGINX_VERSION \
-    && ./configure $CONFIG --with-debug \
+    && ./configure $CONFIG --with-cc-opt='-O2 -g -pipe -Wall -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic' --with-ld-opt='-Wl,-E' --with-debug \
     && make -j$(getconf _NPROCESSORS_ONLN) \
     && mv objs/nginx objs/nginx-debug \
     && mv objs/ngx_http_xslt_filter_module.so objs/ngx_http_xslt_filter_module-debug.so \
@@ -105,7 +105,7 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
     && mv objs/ngx_http_geoip_module.so objs/ngx_http_geoip_module-debug.so \
     && mv objs/ngx_http_perl_module.so objs/ngx_http_perl_module-debug.so \
     && mv objs/ngx_stream_geoip_module.so objs/ngx_stream_geoip_module-debug.so \
-    && ./configure $CONFIG \
+    && ./configure $CONFIG --with-cc-opt='-O2 -g -pipe -Wall -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 -grecord-gcc-switches -m64 -mtune=generic' --with-ld-opt='-Wl,-E' \
     && make -j$(getconf _NPROCESSORS_ONLN) \
     && make install \
     && rm -rf /etc/nginx/html/ \
